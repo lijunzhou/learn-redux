@@ -8,12 +8,16 @@ import todos from "./todos.js";
 import loading from "./loading.js";
 import errorMsg from "./error_msg.js";
 import { combineReducers } from 'redux';
+import {
+    routerStateReducer
+} from 'redux-router';
 
 module.exports = function(state = initState,action = {}){
     return {
         todos : todos(state.todos,action),
         loading : loading(state.loading,action),
-        errorMsg : errorMsg(state.errorMsg,action)
+        errorMsg : errorMsg(state.errorMsg,action),
+        router: routerStateReducer
     }
 }
 //
