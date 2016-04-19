@@ -12,19 +12,24 @@ import Footer from "../components/footer.js";
 import List from "../components/list.js";
 import Form from "../components/form.js";
 
-import {addTask,finishTask,filter} from "model/actions.js";
+import {addTask,finishTask,getTaskList} from "model/actions.js";
 import {ALL} from "model/filter_type.js";
 import {connect} from "react-redux";
 
 
 const App = React.createClass({
+    componentDidMount(){
+        this.props.dispatch(getTaskList());
+    },
     render : function(){
-        const {todos,filterType,dispatch} = this.props;
+        const {todos,loading,dispatch,errorMsg} = this.props;
         return (
             <div>
                 <Form handleAdd={text=>dispatch(addTask(text))} />
                 <List list={todos} handleFinishTask={id=>dispatch(finishTask(id))} />
-                <Footer handleFilter={filterType=>dispatch(filter(filterType))}/>
+                <Footer handleFilter={filterType=>dispatch(getTaskList(filterType))}/>
+                {loading ? "loading..." : ""}
+                {errorMsg ? errorMsg : ""}
             </div>
         )
     }
@@ -38,10 +43,7 @@ const filterTodos = function(todos,filter){
 }
 
 const selecter = function(state){
-    return {
-        filterType : state.filterType,
-        todos : filterTodos(state.todos,state.filterType)
-    }
+    return state
 }
 
 module.exports = connect(selecter)(App);

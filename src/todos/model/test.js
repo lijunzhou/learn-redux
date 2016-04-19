@@ -3,7 +3,7 @@
  */
 "use strict"
 import createStore from "./config_store.js";
-import {addTask,finishTask,filter} from "./actions.js";
+import {addTask,finishTask,filter,getTaskList} from "./actions.js";
 import React from "react";
 
 const store = createStore();
@@ -13,11 +13,11 @@ const unsubscribe = store.subscribe(function(){
 });
 
 store.dispatch(addTask("学习js"));
-store.dispatch(addTask("看电影"));
-store.dispatch(addTask("打游戏"));
-store.dispatch(finishTask(1));
-store.dispatch(finishTask(2));
-
+//store.dispatch(addTask("看电影"));
+//store.dispatch(addTask("打游戏"));
+//store.dispatch(finishTask(1));
+//store.dispatch(finishTask(2));
+store.dispatch(getTaskList());
 unsubscribe();
 
 module.exports = React.createClass({

@@ -5,13 +5,15 @@
 
 import initState from "../initstate.js";
 import todos from "./todos.js";
-import filterType from "./filter_type.js";
+import loading from "./loading.js";
+import errorMsg from "./error_msg.js";
 import { combineReducers } from 'redux';
 
 module.exports = function(state = initState,action = {}){
     return {
         todos : todos(state.todos,action),
-        filterType : filterType(state.filterType,action)
+        loading : loading(state.loading,action),
+        errorMsg : errorMsg(state.errorMsg,action)
     }
 }
 //

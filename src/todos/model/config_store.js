@@ -3,7 +3,15 @@
  */
 "use strict"
 
-import {createStore} from "redux";
+import {createStore,applyMiddleware} from "redux";
+import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
 import reducers from "./reducers";
+const loggerMiddleware = createLogger()
 
-module.exports = ()=>createStore(reducers);
+const createStoreWithMiddleware = applyMiddleware(
+    thunkMiddleware,
+    loggerMiddleware
+)(createStore);
+
+module.exports = ()=>createStoreWithMiddleware(reducers);

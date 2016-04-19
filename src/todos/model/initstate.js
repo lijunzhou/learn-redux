@@ -7,12 +7,7 @@ import {ACTIVE} from "./task_state.js";
 import {ALL} from "./filter_type.js";
 
 module.exports = {
-    todos : [
-        {
-            id : 1,
-            text : "learn react and redux",
-            state : ACTIVE
-        }
-    ],
-    filterType : ALL
+    todos : [],
+    loading : false,
+    errorMsg : undefined
 }
