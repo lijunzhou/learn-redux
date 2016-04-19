@@ -13,30 +13,25 @@ import {createStore,compose,applyMiddleware} from "redux";
 import { persistState } from 'redux-devtools';
 import reducers from "../../model/reducers";
 const loggerMiddleware = createLogger()
-
-const createStoreWithMiddleware = applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware
-)(createStore);
 const DevTools = createDevTools(
     <DockMonitor toggleVisibilityKey='ctrl-h'
                  changePositionKey='ctrl-q'>
         <LogMonitor />
     </DockMonitor>
 );
-
-const enhancer = compose(
+const createStoreWithMiddleware = compose(applyMiddleware(
+    thunkMiddleware,
+    loggerMiddleware),
     DevTools.instrument(),
     persistState(
         window.location.href.match(
             /[?&]debug_session=([^&#]+)\b/
         )
     )
-);
+)(createStore);
+
 
 module.exports = {
-    createStore : function(initState){
-        return createStoreWithMiddleware(reducers,initState,enhancer);
-    },
+    createStore : createStoreWithMiddleware,
     Dev : DevTools
 }

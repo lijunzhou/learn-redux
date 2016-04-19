@@ -8,11 +8,12 @@ import {createStore,Dev} from "./dev.js";
 import { Provider } from 'react-redux';
 import App from './containers/app.js';
 import initState from "model/initstate.js";
+import reducers from "model/reducers";
 
 
 module.exports = React.createClass({
     render : function(){
-        const store = createStore(initState);
+        const store = createStore(reducers,initState);
         return (
             <Provider store={store} >
                 <div>
