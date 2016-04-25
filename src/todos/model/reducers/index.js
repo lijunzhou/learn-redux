@@ -17,7 +17,7 @@ module.exports = function(state = initState,action = {}){
         todos : todos(state.todos,action),
         loading : loading(state.loading,action),
         errorMsg : errorMsg(state.errorMsg,action),
-        router: routerStateReducer
+        router: routerStateReducer(state.router,action)
     }
 }
 //

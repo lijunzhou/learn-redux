@@ -8,27 +8,32 @@ import {render} from "react-dom";
 import TodosPC from "./todos/view/pc/containers/app.js";
 import {compose} from "redux";
 import {createStore,Dev} from "./todos/view/pc/dev.js";
-import {Provider} from "react-redux"
+import {Provider} from "react-redux";
+import {Route,browserHistory} from "react-router";
 import {
     ReduxRouter,
     routerStateReducer,
     reduxReactRouter,
 } from 'redux-router';
 import { createHistory } from 'history';
-import reducers from "./todos/model/reducers";
-
+import reducers from "model/reducers";
 
 const store = compose(
-    routerStateReducer({createHistory})
-)(createStore)(reducer);
+    reduxReactRouter({createHistory})
+)(createStore)(reducers);
 
 render((
-    <Provider store={store}>
-        <div>
-            <ReduxRouter>
-                <Route path="/" component={TodosPC} />
-            </ReduxRouter>
-            <Dev store={store} />
-        </div>
-    </Provider>
+    <div>
+        <Provider store={store}>
+            <div>
+                <ReduxRouter>
+                    <Route path="/" component={TodosPC} >
+                        <Route path="todos" component={TodosPC} />
+                    </Route>
+                </ReduxRouter>
+            </div>
+        </Provider>
+        <Dev store={store} />
+    </div>
 ),document.getElementById("content"));
+
